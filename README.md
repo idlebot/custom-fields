@@ -1,24 +1,27 @@
-# README
+# Custom Fields Demo App
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+My first Rails App.
 
-Things you may want to cover:
+* Demonstrates dynamically adding fields to a Rails form
+* Implements basic user authentication
 
-* Ruby version
+## Setup
 
-* System dependencies
+Requirements:
+* Local PostgreSQL 9.X database engine installed
+* Ruby 2.3.1 and Rails 5.0.0
 
-* Configuration
+Create the following environment variables:
 
-* Database creation
+```
+export CUSTOM_FIELDS_DATABASE_PASSWORD={Postgres Password}
+export CUSTOM_FIELDS_DATABASE_USERNAME={Postgres Username}
+```
 
-* Database initialization
+Go to the application directory and type:
 
-* How to run the test suite
+```
+rails server
+```
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Navigate to http://localhost:3000
