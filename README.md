@@ -27,4 +27,5 @@ rake db:migrate
 rails server
 ```
 
-Navigate to http://localhost:3000
+Navigate to <http://localhost:3000>
+or <http://custom-fields-marcelo.herokuapp.com/> for a hosted version on Heroku.
