@@ -13,7 +13,14 @@ class ContactsController < ApplicationController
   end
 
   def create
-
+    @contact = Contact.new(contact_params)
+    @contact.user = current_user
+    if @contact.save
+      flash[:success] = 'Contact was successfully created'
+      redirect_to contacts_path
+    else
+      render 'new'
+    end
   end
 
   def edit
@@ -21,12 +28,20 @@ class ContactsController < ApplicationController
   end
 
   def update
-
+    if @contact.update(contact_params)
+      flash[:success] = 'Contact was successfully updated'
+      redirect_to contacts_path
+    else
+      render 'edit'
+    end
 
   end
 
   def destroy
+    @contact.destroy
 
+    flash[:danger] = 'Contact was successfully deleted'
+    redirect_to contacts_path
   end
 
 
@@ -40,5 +55,9 @@ class ContactsController < ApplicationController
         flash[:danger] = 'Must be logged in'
         redirect_to root_path
       end
+    end
+
+    def contact_params
+      params.require(:contact).permit(:name, :email)
     end
 end
