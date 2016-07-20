@@ -1,3 +1,6 @@
+TooManyStatements:
+  max_statements: 8
+
 "db/migrate":
   IrresponsibleModule:
     enabled: false
