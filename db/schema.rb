@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160720205730) do
+ActiveRecord::Schema.define(version: 20160720210116) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,6 +33,16 @@ ActiveRecord::Schema.define(version: 20160720205730) do
     t.index ["user_id"], name: "index_custom_fields_on_user_id", using: :btree
   end
 
+  create_table "drop_down_values", force: :cascade do |t|
+    t.string   "value",           null: false
+    t.integer  "user_id",         null: false
+    t.integer  "custom_field_id", null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["custom_field_id"], name: "index_drop_down_values_on_custom_field_id", using: :btree
+    t.index ["user_id", "value"], name: "index_drop_down_values_on_user_id_and_value", unique: true, using: :btree
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "name",            null: false
     t.string   "email",           null: false
@@ -42,4 +52,7 @@ ActiveRecord::Schema.define(version: 20160720205730) do
   end
 
   add_foreign_key "contacts", "users"
+  add_foreign_key "custom_fields", "users"
+  add_foreign_key "drop_down_values", "custom_fields"
+  add_foreign_key "drop_down_values", "users"
 end
