@@ -5,3 +5,5 @@
     enabled: false
   UncommunicativeVariableName:
     enabled: false
+  TooManyStatements:
+    enabled: false
