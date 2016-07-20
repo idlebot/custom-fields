@@ -4,9 +4,8 @@ class ContactsController < ApplicationController
   before_action :require_logged_user
   before_action :set_contact, only: [:edit, :update, :destroy]
 
-
   def index
-    @contacts = Contact.all
+    @contacts = current_user.contacts
   end
 
   def new
