@@ -21,6 +21,9 @@ export CUSTOM_FIELDS_DATABASE_USERNAME={Postgres Username}
 Go to the application directory and type:
 
 ```
+bundle install
+rake db:create
+rake db:migrate
 rails server
 ```
 
