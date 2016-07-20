@@ -1,7 +1,9 @@
-# ContatctsController is responsible for listing, editing and removing contacts
+# ContactsController is responsible for listing, editing and removing contacts
 class ContactsController < ApplicationController
 
+  before_action :require_logged_user
   before_action :set_contact, only: [:edit, :update, :destroy]
+
 
   def index
     @contacts = Contact.all
@@ -24,7 +26,7 @@ class ContactsController < ApplicationController
 
   end
 
-  def destrou
+  def destroy
 
   end
 
@@ -32,5 +34,12 @@ class ContactsController < ApplicationController
   private
     def set_contact
       @contact = Contact.find(params[:id])
+    end
+
+    def require_logged_user
+      unless logged_in?
+        flash[:danger] = 'Must be logged in'
+        redirect_to root_path
+      end
     end
 end
