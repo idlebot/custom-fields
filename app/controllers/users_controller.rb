@@ -1,7 +1,9 @@
 # UsersController handles user account actions
 class UsersController < ApplicationController
 
+  before_action :require_logged_user, only: [:edit, :update]
   before_action :set_user, only: [:edit, :update]
+  before_action :require_same_user, only: [:edit, :update]
 
   def new
     @user = User.new
@@ -12,7 +14,7 @@ class UsersController < ApplicationController
     if @user.save
       flash[:success] = "Welcome to the Custom Field Editor, #{@user.name}"
       session[:user_id] = @user.id
-      redirect_to root_path # TODO user_path(@user)
+      redirect_to contacts_path
     else
       render 'new'
     end
@@ -24,7 +26,7 @@ class UsersController < ApplicationController
   def update
     if @user.update(user_params)
       flash[:success] = "Your account was updated successfully"
-      redirect_to root_path # TODO userpath(@user)
+      redirect_to contacts_path
     else
       render 'edit'
     end
@@ -37,5 +39,12 @@ class UsersController < ApplicationController
 
     def set_user
       @user = User.find(params[:id])
+    end
+
+    def require_same_user
+      unless @user == current_user
+        flash[:danger] = 'Operation requires account owner to be logged in'
+        redirect_to root_path
+      end
     end
 end

@@ -50,13 +50,6 @@ class ContactsController < ApplicationController
       @contact = Contact.find(params[:id])
     end
 
-    def require_logged_user
-      unless logged_in?
-        flash[:danger] = 'Must be logged in'
-        redirect_to root_path
-      end
-    end
-
     def contact_params
       params.require(:contact).permit(:name, :email)
     end
