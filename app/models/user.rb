@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
   has_many :contacts, dependent: :destroy
+  has_many :custom_fields, dependent: :destroy
+
   before_save { self.email = email.downcase }
 
   validates :name,
