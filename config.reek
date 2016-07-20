@@ -1,7 +1,12 @@
+TooManyStatements:
+  max_statements: 8
+
 "db/migrate":
   IrresponsibleModule:
     enabled: false
   FeatureEnvy:
     enabled: false
   UncommunicativeVariableName:
+    enabled: false
+  TooManyStatements:
     enabled: false

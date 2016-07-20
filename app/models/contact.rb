@@ -1,5 +1,6 @@
-class User < ActiveRecord::Base
-  has_many :contacts, dependent: :destroy
+class Contact < ActiveRecord::Base
+
+  belongs_to :user
   before_save { self.email = email.downcase }
 
   validates :name,
@@ -9,9 +10,6 @@ class User < ActiveRecord::Base
   validates :email,
     presence: true,
     length: { maximum: 100 },
-    uniqueness: { case_sensitive: false },
     format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i }
-
-  has_secure_password
 
 end
