@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160720210116) do
+ActiveRecord::Schema.define(version: 20160720212427) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,19 @@ ActiveRecord::Schema.define(version: 20160720210116) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_contacts_on_user_id", using: :btree
+  end
+
+  create_table "custom_field_values", force: :cascade do |t|
+    t.string   "value"
+    t.string   "type",               null: false
+    t.integer  "contact_id",         null: false
+    t.integer  "custom_field_id",    null: false
+    t.integer  "drop_down_value_id"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.index ["contact_id", "custom_field_id"], name: "index_custom_field_values_on_contact_id_and_custom_field_id", unique: true, using: :btree
+    t.index ["custom_field_id"], name: "index_custom_field_values_on_custom_field_id", using: :btree
+    t.index ["drop_down_value_id"], name: "index_custom_field_values_on_drop_down_value_id", using: :btree
   end
 
   create_table "custom_fields", force: :cascade do |t|
@@ -52,6 +65,9 @@ ActiveRecord::Schema.define(version: 20160720210116) do
   end
 
   add_foreign_key "contacts", "users"
+  add_foreign_key "custom_field_values", "contacts"
+  add_foreign_key "custom_field_values", "custom_fields"
+  add_foreign_key "custom_field_values", "drop_down_values"
   add_foreign_key "custom_fields", "users"
   add_foreign_key "drop_down_values", "custom_fields"
   add_foreign_key "drop_down_values", "users"

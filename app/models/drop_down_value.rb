@@ -5,6 +5,6 @@ class DropDownValue < ActiveRecord::Base
 
   validates :value,
     presence: true,
-    length: { minimum: 2, maximum: 50 },
+    length: { minimum: 2, maximum: 50 }
 
 end

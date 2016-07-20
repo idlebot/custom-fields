@@ -4,3 +4,7 @@
 require_relative 'config/application'
 
 Rails.application.load_tasks
+
+task :log => :environment do
+  ActiveRecord::Base.logger = Logger.new(STDOUT)
+end
