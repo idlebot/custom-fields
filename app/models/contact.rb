@@ -1,6 +1,8 @@
 class Contact < ActiveRecord::Base
 
   belongs_to :user
+  has_many :custom_field_values, dependent: :destroy
+
   before_save { self.email = email.downcase }
 
   validates :name,

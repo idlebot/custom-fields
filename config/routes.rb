@@ -11,4 +11,6 @@ Rails.application.routes.draw do
 
   resources :contacts, except: [:show]
 
+  resources :custom_fields, except: [:show]
+
 end
