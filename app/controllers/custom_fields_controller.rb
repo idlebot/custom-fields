@@ -10,7 +10,7 @@ class CustomFieldsController < ApplicationController
 
   def new
     @custom_field = CustomField.new
-    @custom_field.type = 'TextCustomField'
+    @custom_field.type = TextCustomField.name
     @custom_field.drop_down_values.new
   end
 

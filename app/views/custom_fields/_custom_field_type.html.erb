@@ -4,8 +4,8 @@
   </div>
 <% else %>
   <div class="btn-group col-sm-8" data-toggle="buttons">
-    <%= render 'custom_field_type_button', custom_field_type: 'TextCustomField', active: type == 'TextCustomField' %>
-    <%= render 'custom_field_type_button', custom_field_type: 'TextAreaCustomField', active: type == 'TextAreaCustomField' %>
-    <%= render 'custom_field_type_button', custom_field_type: 'DropDownCustomField', active: type == 'DropDownCustomField' %>
+    <%= render 'custom_field_type_button', custom_field_type: TextCustomField.name, active: type == TextCustomField.name %>
+    <%= render 'custom_field_type_button', custom_field_type: TextAreaCustomField.name, active: type == TextAreaCustomField.name %>
+    <%= render 'custom_field_type_button', custom_field_type: DropDownCustomField.name, active: type == DropDownCustomField.name %>
   </div>
 <% end %>
