@@ -1,5 +1,5 @@
 class RemoveTypeFromCustomFieldValues < ActiveRecord::Migration[5.0]
   def change
-    remove_column :custom_field_values, :type
+    remove_column :custom_field_values, :type, :string
   end
 end

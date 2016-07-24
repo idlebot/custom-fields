@@ -35,7 +35,6 @@ class ContactsController < ApplicationController
     else
       render 'edit'
     end
-
   end
 
   def destroy
@@ -44,7 +43,6 @@ class ContactsController < ApplicationController
     flash[:danger] = 'Contact was successfully deleted'
     redirect_to contacts_path
   end
-
 
   private
     def set_contact
