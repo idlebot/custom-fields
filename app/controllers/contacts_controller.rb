@@ -10,11 +10,12 @@ class ContactsController < ApplicationController
 
   def new
     @contact = Contact.new
+    create_custom_field_values(@contact)
   end
 
   def create
-    @contact = Contact.new(contact_params)
-    @contact.user = current_user
+    @contact = current_user.contacts.new(contact_params)
+
     if @contact.save
       flash[:success] = 'Contact was successfully created'
       redirect_to contacts_path
@@ -24,7 +25,7 @@ class ContactsController < ApplicationController
   end
 
   def edit
-
+    create_custom_field_values(@contact)
   end
 
   def update
@@ -47,10 +48,23 @@ class ContactsController < ApplicationController
 
   private
     def set_contact
-      @contact = Contact.find(params[:id])
+      @contact = Contact.includes(:custom_field_values => :custom_field).find(params[:id])
     end
 
     def contact_params
-      params.require(:contact).permit(:name, :email)
+      params.require(:contact)
+        .permit(:name, :email, custom_field_values_attributes: [:id, :value, :drop_down_value_id, :custom_field_id])
+    end
+
+    # create empty custom field values for all custom_fields
+    # if a value already exists, skip creation
+    def create_custom_field_values(contact)
+      existing_custom_fields = contact.custom_field_values.collect { |v| v.custom_field }
+      current_user.custom_fields.each do |custom_field|
+        unless existing_custom_fields.include?(custom_field)
+          new_value = contact.custom_field_values.new
+          new_value.custom_field = custom_field
+        end
+      end
     end
 end

@@ -1,6 +1,7 @@
 class DropDownValue < ActiveRecord::Base
 
   belongs_to :custom_field, required: false
+  has_many :custom_field_values, dependent: :destroy
 
   validates :value,
     presence: true,

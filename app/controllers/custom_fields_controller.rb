@@ -32,7 +32,6 @@ class CustomFieldsController < ApplicationController
   end
 
   def update
-    debugger
     if @custom_field.update(custom_field_params)
       flash[:success] = 'Custom field was successfully updated'
       redirect_to custom_fields_path

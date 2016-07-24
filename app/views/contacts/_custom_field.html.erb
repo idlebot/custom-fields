@@ -1,0 +1,9 @@
+<div class='form-group'>
+  <div class='control-label col-sm-2'>
+    <%= f.label(:value, f.object.custom_field.field_name) %>
+    <%= f.hidden_field(:custom_field_id) %>
+  </div>
+
+  <%= render f.object.custom_field.type.underscore, :f => f %>
+
+</div>
