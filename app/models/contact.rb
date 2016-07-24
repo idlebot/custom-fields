@@ -2,8 +2,7 @@ class Contact < ActiveRecord::Base
 
   belongs_to :user
   has_many :custom_field_values, dependent: :destroy
-  accepts_nested_attributes_for :custom_field_values,
-    :reject_if => lambda { |custom_field_value| custom_field_value[:value].blank? }
+  accepts_nested_attributes_for :custom_field_values
 
   before_save { self.email = email.downcase }
 
