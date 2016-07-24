@@ -1,4 +1,4 @@
 <label class="btn btn-primary <%= active ? 'active' : '' %>" id="<%= custom_field_type %>_option" >
   <input type="radio" name="options" autocomplete="off" checked>
-  <%= custom_field_type_description(custom_field_type) %>
+  <%= CustomField::type_description(custom_field_type) %>
 </label>

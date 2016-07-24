@@ -1,6 +1,6 @@
 <% if read_only %>
   <div class='col-sm-8'>
-    <p class="form-control-static"><%= custom_field_type_description(type) %></p>
+    <p class="form-control-static"><%= CustomField::type_description(type) %></p>
   </div>
 <% else %>
   <div class="btn-group col-sm-8" data-toggle="buttons">

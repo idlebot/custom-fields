@@ -1,3 +1,4 @@
+# Base class for all custom field definitions
 class CustomField < ActiveRecord::Base
 
   belongs_to :user
@@ -15,5 +16,14 @@ class CustomField < ActiveRecord::Base
     length: { minimum: 2, maximum: 50 }
 
   validates_uniqueness_of :field_name, :scope => :user_id
+
+  def self.type_description(type)
+    # converts DropDownCustomField -> Drop Down
+    type[/(.*)(CustomField)$/, 1].underscore.titleize
+  end
+
+  def type_description
+    CustomField::type_description(type)
+  end
 
 end

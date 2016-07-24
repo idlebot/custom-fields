@@ -1,7 +1,6 @@
 # CustomFieldsController is responsible for listing, editing and removing custom_fields
 class CustomFieldsController < ApplicationController
 
-  helper_method :custom_field_type_description
   before_action :require_logged_user
   before_action :set_custom_field, only: [:edit, :update, :destroy]
 
@@ -17,10 +16,8 @@ class CustomFieldsController < ApplicationController
 
   def create
     @custom_field = current_user.custom_fields.new(custom_field_params)
-
-    type = @custom_field.type
     if @custom_field.save
-      flash[:success] = "#{custom_field_type_description(type)} was successfully created"
+      flash[:success] = "#{@custom_field.type_description} was successfully created"
       redirect_to custom_fields_path
     else
       render 'new'
@@ -45,11 +42,6 @@ class CustomFieldsController < ApplicationController
 
     flash[:danger] = 'Custom field was successfully deleted'
     redirect_to custom_fields_path
-  end
-
-  def custom_field_type_description(type)
-    # converts DropDownCustomField -> Drop Down
-    type[/(.*)(CustomField)$/, 1].underscore.titleize
   end
 
   private
