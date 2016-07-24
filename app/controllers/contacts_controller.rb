@@ -57,10 +57,11 @@ class ContactsController < ApplicationController
     # create empty custom field values for all custom_fields
     # if a value already exists, skip creation
     def create_custom_field_values(contact)
-      existing_custom_fields = contact.custom_field_values.collect { |custom_field_value| custom_field_value.custom_field }
+      values = contact.custom_field_values
+      existing_custom_fields = values.collect { |custom_field_value| custom_field_value.custom_field }
       current_user.custom_fields.each do |custom_field|
         unless existing_custom_fields.include?(custom_field)
-          new_value = contact.custom_field_values.new
+          new_value = values.new
           new_value.custom_field = custom_field
         end
       end

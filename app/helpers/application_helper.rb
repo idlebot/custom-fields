@@ -8,9 +8,9 @@ module ApplicationHelper
   def link_to_add_fields(fields, name, association)
     new_object = fields.object.send(association).klass.new
     id = new_object.object_id
-    fields = fields.fields_for(association, new_object, child_index: id) do |builder|
+    fields_partial = fields.fields_for(association, new_object, child_index: id) do |builder|
       render(association.to_s.singularize + "_fields", f: builder)
     end
-    link_to(name, '#', class: "add-fields btn btn-default add-field-button", data: {id: id, fields: fields.gsub("\n", "")})
+    link_to(name, '#', class: "add-fields btn btn-default add-field-button", data: {id: id, fields: fields_partial.gsub("\n", "")})
   end
 end
