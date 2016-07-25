@@ -38,13 +38,4 @@ class LoginLogoutTest < ActionDispatch::IntegrationTest
     assert_template 'pages/home'
   end
 
-
-  private
-
-  def logout
-    delete logout_path
-    follow_redirect!
-    assert_template 'pages/home'
-  end
-
 end
