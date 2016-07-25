@@ -1,6 +1,6 @@
 require 'test_helper'
 
-# Test routes permissions
+# Test route permissions
 class PermissionTest < ActionDispatch::IntegrationTest
 
   def setup
@@ -15,6 +15,18 @@ class PermissionTest < ActionDispatch::IntegrationTest
 
   test 'Contact index must fail if not logged in' do
     get contacts_path
+    follow_redirect!
+    assert_template 'pages/home'
+  end
+
+  test 'Custom field index succeeds with user logged in' do
+    login
+    get custom_fields_path
+    assert_template 'custom_fields/index'
+  end
+
+  test 'Custom field index must fail if not logged in' do
+    get custom_fields_path
     follow_redirect!
     assert_template 'pages/home'
   end
