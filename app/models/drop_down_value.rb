@@ -10,8 +10,6 @@ class DropDownValue < ActiveRecord::Base
 
   validates_uniqueness_of :value, :scope => :custom_field_id
 
-  validates :custom_field, :presence => true
-
   validate :custom_field_must_be_drop_down_custom_field
 
   def custom_field_must_be_drop_down_custom_field
