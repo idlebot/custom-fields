@@ -3,6 +3,7 @@ class ContactsController < ApplicationController
 
   before_action :require_logged_user
   before_action :set_contact, only: [:edit, :update, :destroy]
+  before_action :ensure_contact_owner, only: [:edit, :update, :destroy]
 
   def index
     @contacts = current_user.contacts
@@ -47,6 +48,14 @@ class ContactsController < ApplicationController
   private
     def set_contact
       @contact = Contact.includes(:custom_field_values => :custom_field).find(params[:id])
+
+    end
+
+    def ensure_contact_owner
+      unless @contact.user == current_user
+        flash[:danger] = 'Invalid contact'
+        redirect_to contacts_path
+      end
     end
 
     def contact_params

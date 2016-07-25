@@ -1,12 +1,13 @@
 require 'test_helper'
-require_relative 'integration_test_setup'
+require_relative 'integration_test_helper'
+
 # Test basic custom field operations
 class CustomFieldTest < ActionDispatch::IntegrationTest
 
-  include IntegrationTestSetup
+  include IntegrationTestHelper
 
   def setup
-    create_environment
+    setup_user_accounts
   end
 
   test 'Users cannot see each other custom fields' do
@@ -177,18 +178,6 @@ class CustomFieldTest < ActionDispatch::IntegrationTest
 
     assert_select 'tbody tr', {count: 3}
     assert_match field_name, response.body
-  end
-
-  private
-
-  def login(user)
-    get login_path
-    assert_template 'sessions/new'
-    post login_path, params: { session: { email: user.email, password: user.password } }
-  end
-
-  def logout
-    delete logout_path
   end
 
 end
