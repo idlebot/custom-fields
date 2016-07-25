@@ -14,3 +14,5 @@ TooManyStatements:
 "test":
   TooManyStatements:
     enabled: false
+  TooManyInstanceVariables:
+    enabled: false
