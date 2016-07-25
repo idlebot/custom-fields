@@ -31,11 +31,59 @@ class PermissionTest < ActionDispatch::IntegrationTest
     assert_template 'pages/home'
   end
 
-  private
-    def login
-      get login_path
-      assert_template 'sessions/new'
-      post login_path, params: { session: { email: 'testuser@email.com', password: 'password' } }
+  test 'edit custom field must fail if not logged in' do
+    assert_no_difference 'CustomField.count' do
+      put custom_field_path(1), params: {
+        custom_field: {
+          type: DropDownCustomField.name,
+          field_name: 'hello',
+          drop_down_values_attributes: {
+            "0": {
+              "value" => 'value',
+              "_destroy" => "1",
+              "id" => 0
+            }
+          }
+        }
+      }
     end
+    follow_redirect!
+    assert_template 'pages/home'
+  end
+
+  test 'create custom field must fail if not logged in' do
+    assert_no_difference 'CustomField.count' do
+      post custom_fields_path, params: {
+        custom_field: {
+          type: DropDownCustomField.name,
+          field_name: 'hello',
+          drop_down_values_attributes: {
+            "0": {
+              "value" => 'value',
+              "_destroy" => "1",
+              "id" => 0
+            }
+          }
+        }
+      }
+    end
+    follow_redirect!
+    assert_template 'pages/home'
+  end
+
+  test 'delete custom field  must fail if not logged in' do
+    assert_no_difference 'CustomField.count' do
+      delete custom_field_path(1)
+    end
+    follow_redirect!
+    assert_template 'pages/home'
+  end
+
+  private
+  def login
+    get login_path
+    assert_template 'sessions/new'
+    post login_path, params: { session: { email: 'testuser@email.com', password: 'password' } }
+  end
 
 end
