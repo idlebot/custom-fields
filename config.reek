@@ -10,3 +10,7 @@ TooManyStatements:
     enabled: false
   TooManyStatements:
     enabled: false
+
+"test":
+  TooManyStatements:
+    enabled: false
