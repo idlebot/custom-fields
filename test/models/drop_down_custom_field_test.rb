@@ -8,7 +8,7 @@ class DropDownCustomFieldTest < ActiveSupport::TestCase
       name: 'Test User',
       email: 'email@email.com',
       password: 'password')
-      @user.save!
+    @user.save!
   end
 
   test 'cannot save DropDownCustomField without at least one DropDownValue' do

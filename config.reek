@@ -1,6 +1,11 @@
 TooManyStatements:
   max_statements: 8
 
+UtilityFunction:
+  exclude:
+    - "ActiveSupport::TestCase#drop_down_value_attributes"
+    - "ActiveSupport::TestCase#drop_down_value_destroy_attributes"
+
 "db/migrate":
   IrresponsibleModule:
     enabled: false

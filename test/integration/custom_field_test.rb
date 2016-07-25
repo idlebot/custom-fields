@@ -1,32 +1,12 @@
 require 'test_helper'
-
+require_relative 'integration_test_setup'
 # Test basic custom field operations
 class CustomFieldTest < ActionDispatch::IntegrationTest
 
+  include IntegrationTestSetup
+
   def setup
-    @user_custom_fields = User.create(name: 'custom_fields', email: 'custom_fields@email.com', password: 'password')
-    user_custom_fields = @user_custom_fields.custom_fields
-    @drop_down_custom_field = user_custom_fields.new(
-      field_name: 'Drop Down Custom Field',
-      type: DropDownCustomField.name)
-
-    @drop_down_value = @drop_down_custom_field.drop_down_values.new
-    @drop_down_value.value = 'value'
-    @drop_down_value.custom_field = @drop_down_custom_field
-
-    @drop_down_custom_field.save!
-
-    @text_custom_field = user_custom_fields.new(
-      field_name: 'Text Custom Field',
-      type: TextCustomField.name)
-    @text_custom_field.save!
-
-    @text_area_custom_field = user_custom_fields.new(
-      field_name: 'Text Area Custom Field',
-      type: TextAreaCustomField.name)
-    @text_area_custom_field.save!
-
-    @user_no_custom_fields = User.create(name: 'no_custom_fields', email: 'no_custom_fields@email.com', password: 'password')
+    create_environment
   end
 
   test 'Users cannot see each other custom fields' do
@@ -109,10 +89,7 @@ class CustomFieldTest < ActionDispatch::IntegrationTest
           type: DropDownCustomField.name,
           field_name: field_name,
           drop_down_values_attributes: {
-            "1469441463429": {
-              "value"=>"value",
-              "_destroy"=>"false"
-            }
+            "1469441463429": drop_down_value_attributes('value')
           }
         }
       }
@@ -144,10 +121,7 @@ class CustomFieldTest < ActionDispatch::IntegrationTest
           type: TextCustomField.name,
           field_name: field_name,
           drop_down_values_attributes: {
-            "0": {
-              "value"=>"",
-              "_destroy"=>"false"
-            }
+            "0": drop_down_value_attributes('')
           }
         }
       }
@@ -162,21 +136,15 @@ class CustomFieldTest < ActionDispatch::IntegrationTest
   test 'edit custom field add drop down value' do
     login(@user_custom_fields)
     field_name = @drop_down_custom_field.field_name
+
     assert_difference 'DropDownValue.count', 1 do
       put custom_field_path(@drop_down_custom_field), params: {
         custom_field: {
           type: DropDownCustomField.name,
           field_name: field_name,
           drop_down_values_attributes: {
-            "0": {
-              "value" => @drop_down_value.value,
-              "_destroy" => "false",
-              "id" => @drop_down_value.id.to_s
-            },
-            "1": {
-              "value" => 'new value',
-              "_destroy" => "false"
-            }
+            "0": drop_down_value_attributes('value', @drop_down_value.id.to_s),
+            "1": drop_down_value_attributes('new value')
           }
         }
       }
@@ -198,11 +166,7 @@ class CustomFieldTest < ActionDispatch::IntegrationTest
           type: DropDownCustomField.name,
           field_name: field_name,
           drop_down_values_attributes: {
-            "0": {
-              "value" => @drop_down_value.value,
-              "_destroy" => "1",
-              "id" => @drop_down_value.id.to_s
-            }
+            "0": drop_down_value_destroy_attributes('value', @drop_down_value.id.to_s)
           }
         }
       }
