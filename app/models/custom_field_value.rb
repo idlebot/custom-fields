@@ -1,3 +1,4 @@
+# represents contacts custom field values
 class CustomFieldValue < ActiveRecord::Base
 
   # optional must be true otherwise saving through accepts_nested_attributes_for
