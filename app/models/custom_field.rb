@@ -1,6 +1,5 @@
 # Base class for all custom field definitions
 class CustomField < ActiveRecord::Base
-
   belongs_to :user
 
   has_many :custom_field_values, dependent: :destroy
@@ -8,14 +7,14 @@ class CustomField < ActiveRecord::Base
   has_many :drop_down_values, dependent: :destroy, autosave: true
 
   accepts_nested_attributes_for :drop_down_values,
-    :reject_if => lambda { |drop_down_values| drop_down_values[:value].blank? },
-    :allow_destroy => true
+    reject_if: ->(drop_down_values) { drop_down_values[:value].blank? },
+    allow_destroy: true
 
   validates :field_name,
     presence: true,
     length: { minimum: 2, maximum: 50 }
 
-  validates_uniqueness_of :field_name, :scope => :user_id
+  validates_uniqueness_of :field_name, scope: :user_id
 
   validate :only_drop_down_custom_field_can_have_drop_down_values
 
@@ -27,7 +26,7 @@ class CustomField < ActiveRecord::Base
     drop_down_value_type = DropDownValue.name
     drop_down_value_count = drop_down_values.length
     if type == DropDownCustomField.name
-      if drop_down_value_count == 0
+      if drop_down_value_count.zero?
         errors.add(:type, "#{type} must have at least one #{drop_down_value_type}")
       end
     else
@@ -43,7 +42,6 @@ class CustomField < ActiveRecord::Base
   end
 
   def type_description
-    CustomField::type_description(type)
+    CustomField.type_description(type)
   end
-
 end

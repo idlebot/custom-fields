@@ -1,8 +1,5 @@
-# PagesController is responsible for the Home Page 
+# PagesController is responsible for the Home Page
 class PagesController < ApplicationController
-
   def home
-
   end
-
 end

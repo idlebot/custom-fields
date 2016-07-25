@@ -1,8 +1,6 @@
 # SessionsController is responsible for handling login/logout
 class SessionsController < ApplicationController
-
   def new
-
   end
 
   def create
@@ -17,7 +15,6 @@ class SessionsController < ApplicationController
       flash.now[:danger] = 'There was something wrong with your login information'
       render 'new'
     end
-
   end
 
   def destroy
@@ -25,5 +22,4 @@ class SessionsController < ApplicationController
     flash[:success] = 'You have logged out'
     redirect_to root_path
   end
-
 end

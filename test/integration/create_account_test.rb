@@ -2,7 +2,6 @@ require 'test_helper'
 
 # Test create account process
 class CreateAccount < ActionDispatch::IntegrationTest
-
   def setup
     @user = User.create(name: 'testuser', email: 'testuser@email.com', password: 'password')
   end
@@ -29,5 +28,4 @@ class CreateAccount < ActionDispatch::IntegrationTest
 
     assert_template 'users/new'
   end
-
 end

@@ -2,7 +2,6 @@ require 'test_helper'
 
 # Login/logout test cases
 class LoginLogoutTest < ActionDispatch::IntegrationTest
-
   def setup
     @user = User.create(name: 'testuser', email: 'testuser@email.com', password: 'password')
   end
@@ -37,5 +36,4 @@ class LoginLogoutTest < ActionDispatch::IntegrationTest
     follow_redirect!
     assert_template 'pages/home'
   end
-
 end

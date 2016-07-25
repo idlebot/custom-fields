@@ -1,6 +1,5 @@
 # ContactsController is responsible for listing, editing and removing contacts
 class ContactsController < ApplicationController
-
   before_action :require_logged_user
   before_action :set_contact, only: [:edit, :update, :destroy]
   before_action :ensure_contact_owner, only: [:edit, :update, :destroy]
@@ -46,33 +45,33 @@ class ContactsController < ApplicationController
   end
 
   private
-    def set_contact
-      @contact = Contact.includes(:custom_field_values => :custom_field).find(params[:id])
 
+  def set_contact
+    @contact = Contact.includes(custom_field_values: :custom_field).find(params[:id])
+  end
+
+  def ensure_contact_owner
+    unless @contact.user == current_user
+      flash[:danger] = 'Invalid contact'
+      redirect_to contacts_path
     end
+  end
 
-    def ensure_contact_owner
-      unless @contact.user == current_user
-        flash[:danger] = 'Invalid contact'
-        redirect_to contacts_path
+  def contact_params
+    params.require(:contact)
+          .permit(:name, :email, custom_field_values_attributes: [:id, :value, :drop_down_value_id, :custom_field_id])
+  end
+
+  # create empty custom field values for all custom_fields
+  # if a value already exists, skip creation
+  def create_custom_field_values(contact)
+    values = contact.custom_field_values
+    existing_custom_fields = values.collect(&:custom_field)
+    current_user.custom_fields.each do |custom_field|
+      unless existing_custom_fields.include?(custom_field)
+        new_value = values.new
+        new_value.custom_field = custom_field
       end
     end
-
-    def contact_params
-      params.require(:contact)
-        .permit(:name, :email, custom_field_values_attributes: [:id, :value, :drop_down_value_id, :custom_field_id])
-    end
-
-    # create empty custom field values for all custom_fields
-    # if a value already exists, skip creation
-    def create_custom_field_values(contact)
-      values = contact.custom_field_values
-      existing_custom_fields = values.collect { |custom_field_value| custom_field_value.custom_field }
-      current_user.custom_fields.each do |custom_field|
-        unless existing_custom_fields.include?(custom_field)
-          new_value = values.new
-          new_value.custom_field = custom_field
-        end
-      end
-    end
+  end
 end

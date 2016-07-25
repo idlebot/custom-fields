@@ -1,4 +1,4 @@
-$(document).on('turbolinks:load', function() {
+$(document).on('turbolinks:load', function () {
   // set up UJS only for views based on the CustomFieldsController
   if ($('body[data-controller="custom_fields"]').length === 0) {
     return;
@@ -19,17 +19,17 @@ function newActionUJSSetup() {
     $('.drop-down-values-editor').hide();
   }
 
-  $(document).on('click', '#TextCustomField_option', function(event) {
+  $(document).on('click', '#TextCustomField_option', function (event) {
     $('#custom_field_type').val('TextCustomField');
     hideDropDownValueEditor();
   });
 
-  $(document).on('click', '#TextAreaCustomField_option', function(event) {
+  $(document).on('click', '#TextAreaCustomField_option', function (event) {
     $('#custom_field_type').val('TextAreaCustomField');
     hideDropDownValueEditor();
   });
 
-  $(document).on('click', '#DropDownCustomField_option', function(event) {
+  $(document).on('click', '#DropDownCustomField_option', function (event) {
     $('#custom_field_type').val('DropDownCustomField');
     showDropDownValueEditor();
   });

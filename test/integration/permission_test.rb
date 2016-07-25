@@ -4,7 +4,10 @@ require 'test_helper'
 class PermissionTest < ActionDispatch::IntegrationTest
 
   def setup
-    @user = User.create(name: 'testuser', email: 'testuser@email.com', password: 'password')
+    @user = User.create(
+      name: 'testuser',
+      email: 'testuser@email.com',
+      password: 'password')
   end
 
   test 'Contact index succeeds with user logged in' do

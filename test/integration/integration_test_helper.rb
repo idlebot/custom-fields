@@ -5,7 +5,8 @@ module IntegrationTestHelper
     user_custom_fields = @user_custom_fields.custom_fields
     @drop_down_custom_field = user_custom_fields.new(
       field_name: 'Drop Down Custom Field',
-      type: DropDownCustomField.name)
+      type: DropDownCustomField.name
+    )
 
     drop_down_values = @drop_down_custom_field.drop_down_values
     @drop_down_value = drop_down_values.new
@@ -20,12 +21,14 @@ module IntegrationTestHelper
 
     @text_custom_field = user_custom_fields.new(
       field_name: 'Text Custom Field',
-      type: TextCustomField.name)
+      type: TextCustomField.name
+    )
     @text_custom_field.save!
 
     @text_area_custom_field = user_custom_fields.new(
       field_name: 'Text Area Custom Field',
-      type: TextAreaCustomField.name)
+      type: TextAreaCustomField.name
+    )
     @text_area_custom_field.save!
 
     @user_no_custom_fields = User.create(name: 'no_custom_fields', email: 'no_custom_fields@email.com', password: 'password')
@@ -70,33 +73,33 @@ module IntegrationTestHelper
 
   def create_custom_field_value_attribute(custom_field, value, custom_field_value = nil)
     attribute = {}
-    attribute["value"] = value
-    attribute["custom_field_id"] = custom_field.id.to_s
-    attribute["id"] = custom_field_value.id.to_s if custom_field_value
-    return attribute
+    attribute['value'] = value
+    attribute['custom_field_id'] = custom_field.id.to_s
+    attribute['id'] = custom_field_value.id.to_s if custom_field_value
+    attribute
   end
 
   def create_custom_field_drop_down_value_attribute(custom_field, drop_down_value, custom_field_value = nil)
     attribute = {}
-    attribute["drop_down_value_id"] = drop_down_value.id.to_s
-    attribute["custom_field_id"] = custom_field.id.to_s
-    attribute["id"] = custom_field_value.id.to_s if custom_field_value
-    return attribute
+    attribute['drop_down_value_id'] = drop_down_value.id.to_s
+    attribute['custom_field_id'] = custom_field.id.to_s
+    attribute['id'] = custom_field_value.id.to_s if custom_field_value
+    attribute
   end
 
   def drop_down_value_attributes(value, id = nil)
     attributes = {}
-    attributes["value"] = value
-    attributes["_destroy"] = 'false'
-    attributes["id"] = id.to_s if id
-    return attributes
+    attributes['value'] = value
+    attributes['_destroy'] = 'false'
+    attributes['id'] = id.to_s if id
+    attributes
   end
 
   def drop_down_value_destroy_attributes(value, id)
     attributes = {}
-    attributes["value"] = value
-    attributes["_destroy"] = '1'
-    attributes["id"] = id.to_s if id
-    return attributes
+    attributes['value'] = value
+    attributes['_destroy'] = '1'
+    attributes['id'] = id.to_s if id
+    attributes
   end
 end

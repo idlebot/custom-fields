@@ -1,13 +1,12 @@
 # represents contacts custom field values
 class CustomFieldValue < ActiveRecord::Base
-
   # optional must be true otherwise saving through accepts_nested_attributes_for
   # does not work
   belongs_to :contact, optional: true
   belongs_to :custom_field
   belongs_to :drop_down_value, optional: true
 
-  validates_uniqueness_of :custom_field_id, :scope => :contact_id
+  validates_uniqueness_of :custom_field_id, scope: :contact_id
 
   validate :only_drop_down_custom_field_values_can_have_drop_down_value
   validate :drop_down_custom_field_values_must_have_drop_down_value
@@ -29,5 +28,4 @@ class CustomFieldValue < ActiveRecord::Base
       end
     end
   end
-
 end

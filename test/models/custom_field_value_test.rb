@@ -2,18 +2,19 @@ require 'test_helper'
 
 # CustomFieldValue model tests
 class CustomFieldValueTest < ActiveSupport::TestCase
-
   def setup
     @user = User.new(
       name: 'Test User',
       email: 'email@email.com',
-      password: 'password')
+      password: 'password'
+    )
     @user.save!
 
     user_custom_fields = @user.custom_fields
     @drop_down_custom_field = user_custom_fields.new(
       field_name: 'Drop Down Custom Field',
-      type: DropDownCustomField.name)
+      type: DropDownCustomField.name
+    )
 
     @drop_down_value = @drop_down_custom_field.drop_down_values.new
     @drop_down_value.value = 'value'
@@ -23,12 +24,14 @@ class CustomFieldValueTest < ActiveSupport::TestCase
 
     @text_custom_field = user_custom_fields.new(
       field_name: 'Text Custom Field',
-      type: TextCustomField.name)
+      type: TextCustomField.name
+    )
     @text_custom_field.save!
 
     @text_area_custom_field = user_custom_fields.new(
       field_name: 'Text Area Custom Field',
-      type: TextAreaCustomField.name)
+      type: TextAreaCustomField.name
+    )
     @text_area_custom_field.save!
 
     @contact = @user.contacts.new
@@ -73,9 +76,5 @@ class CustomFieldValueTest < ActiveSupport::TestCase
     duplicated_text_value.custom_field = @text_custom_field
     duplicated_text_value.value = 'Text Value Duplicated'
     assert_not(@contact.save)
-
   end
-
-
-
 end

@@ -1,5 +1,4 @@
 class Contact < ActiveRecord::Base
-
   belongs_to :user
   has_many :custom_field_values, dependent: :destroy
   accepts_nested_attributes_for :custom_field_values
@@ -14,5 +13,4 @@ class Contact < ActiveRecord::Base
     presence: true,
     length: { maximum: 100 },
     format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i }
-
 end

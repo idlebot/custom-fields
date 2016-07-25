@@ -3,10 +3,10 @@ TooManyStatements:
 
 UtilityFunction:
   exclude:
-    - "IntegrationTestSetup#drop_down_value_attributes"
-    - "IntegrationTestSetup#drop_down_value_destroy_attributes"
-    - "IntegrationTestSetup#create_custom_field_value_attribute"
-    - "IntegrationTestSetup#create_custom_field_drop_down_value_attribute"
+    - "IntegrationTestHelper#drop_down_value_attributes"
+    - "IntegrationTestHelper#drop_down_value_destroy_attributes"
+    - "IntegrationTestHelper#create_custom_field_value_attribute"
+    - "IntegrationTestHelper#create_custom_field_drop_down_value_attribute"
 
 
 "db/migrate":

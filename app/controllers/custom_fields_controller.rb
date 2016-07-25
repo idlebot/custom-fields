@@ -1,6 +1,5 @@
 # CustomFieldsController is responsible for listing, editing and removing custom_fields
 class CustomFieldsController < ApplicationController
-
   before_action :require_logged_user
   before_action :set_custom_field, only: [:edit, :update, :destroy]
 
@@ -45,12 +44,12 @@ class CustomFieldsController < ApplicationController
   end
 
   private
-    def set_custom_field
-      @custom_field = CustomField.find(params[:id])
-    end
 
-    def custom_field_params
-      params.require(:custom_field).permit(:field_name, :type, drop_down_values_attributes: [ :id, :value, :_destroy ])
-    end
+  def set_custom_field
+    @custom_field = CustomField.find(params[:id])
+  end
 
+  def custom_field_params
+    params.require(:custom_field).permit(:field_name, :type, drop_down_values_attributes: [:id, :value, :_destroy])
+  end
 end

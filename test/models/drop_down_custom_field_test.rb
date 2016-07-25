@@ -2,12 +2,12 @@ require 'test_helper'
 
 # DropDownCustomField model tests
 class DropDownCustomFieldTest < ActiveSupport::TestCase
-
   def setup
     @user = User.new(
       name: 'Test User',
       email: 'email@email.com',
-      password: 'password')
+      password: 'password'
+    )
     @user.save!
   end
 
@@ -15,7 +15,8 @@ class DropDownCustomFieldTest < ActiveSupport::TestCase
     user_custom_fields = @user.custom_fields
     drop_down_custom_field = user_custom_fields.new(
       field_name: 'Drop Down Custom Field',
-      type: DropDownCustomField.name)
+      type: DropDownCustomField.name
+    )
     assert_not(drop_down_custom_field.save)
     assert_match(/must have at least one/, drop_down_custom_field.errors.full_messages[0])
   end
@@ -24,7 +25,8 @@ class DropDownCustomFieldTest < ActiveSupport::TestCase
     user_custom_fields = @user.custom_fields
     drop_down_custom_field = user_custom_fields.new(
       field_name: 'Drop Down Custom Field',
-      type: DropDownCustomField.name)
+      type: DropDownCustomField.name
+    )
 
     drop_down_value = drop_down_custom_field.drop_down_values.new
     drop_down_value.value = 'value'
@@ -37,7 +39,8 @@ class DropDownCustomFieldTest < ActiveSupport::TestCase
     user_custom_fields = @user.custom_fields
     drop_down_custom_field = user_custom_fields.new(
       field_name: 'Drop Down Custom Field',
-      type: DropDownCustomField.name)
+      type: DropDownCustomField.name
+    )
 
     drop_down_value = drop_down_custom_field.drop_down_values.new
     drop_down_value.value = 'value'
@@ -54,7 +57,8 @@ class DropDownCustomFieldTest < ActiveSupport::TestCase
     user_custom_fields = @user.custom_fields
     text_area_custom_field = user_custom_fields.new(
       field_name: 'Text Area Custom Field',
-      type: TextAreaCustomField.name)
+      type: TextAreaCustomField.name
+    )
 
     assert(text_area_custom_field.save)
 
@@ -69,5 +73,4 @@ class DropDownCustomFieldTest < ActiveSupport::TestCase
     # save now passes
     assert(text_area_custom_field.save)
   end
-
 end
