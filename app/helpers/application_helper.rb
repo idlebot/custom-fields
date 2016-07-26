@@ -12,7 +12,7 @@ module ApplicationHelper
       render(association.to_s.singularize + '_fields', f: builder)
     end
     link_to(name,
-      # ',
+      '#',
       class: 'add-fields btn btn-default add-field-button',
       data: {
         id: id,
