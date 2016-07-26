@@ -2,6 +2,7 @@
 class CustomFieldsController < ApplicationController
   before_action :require_logged_user
   before_action :set_custom_field, only: [:edit, :update, :destroy]
+  before_action :ensure_owner, only: [:edit, :update, :destroy]
 
   def index
     @custom_fields = current_user.custom_fields
@@ -51,5 +52,12 @@ class CustomFieldsController < ApplicationController
 
   def custom_field_params
     params.require(:custom_field).permit(:field_name, :type, drop_down_values_attributes: [:id, :value, :_destroy])
+  end
+
+  def ensure_owner
+    unless @custom_field.user == current_user
+      flash[:danger] = 'Invalid custom field'
+      redirect_to contacts_path
+    end
   end
 end
